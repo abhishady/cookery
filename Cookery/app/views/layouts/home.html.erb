@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/assets/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/demo.css" />
+    <link rel="stylesheet" href="/assets/font/font-awesome-4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/component.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/animate.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/wow.min.js"></script>
+    <script src="/assets/modernizr.custom.63321.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
+    <script src="/assets/jara/snap.svg-min.js"></script>
+
+    <script>
+        new WOW().init();
+    </script>
+    <script>
+        $(document).ready(function(){
+
+            $("#close_btn").click(function(){
+                $('body,html').animate({
+                    scrollTop: "1800px"
+                }, 5);
+            });
+              $(".action--open").click(function(){
+                  $(".sld").css({"overflow":"none"});
+              });
+        });
+         function searchValidation()
+         {
+            val = $("#srch").val();
+            if(val=="")
+            {
+                alert("Enter value!!");
+                $("#srch").focus();
+            }
+            else
+            {
+                $("#search_form").submit();
+            }
+         }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('#home').click(function(){
+                $('body,html').animate({
+                    scrollTop: "0px"
+                }, 600);
+            });
+            $('#about').click(function(){
+                $('body,html').animate({
+                    scrollTop: "800px"
+                }, 600);
+            });
+            $('#dishes').click(function(){
+                $('body,html').animate({
+                    scrollTop: "2400px"
+                }, 1300);
+            });
+            $('#contact').click(function(){
+                $('body,html').animate({
+                    scrollTop: "3150px"
+                }, 1300);
+            });
+            $('#icon').click(function(){
+                $('body,html').animate({
+                    scrollTop: "0px"
+                }, 1300);
+            });
+        });
+    </script>
+
+    <script>
+        // $(window).load(function(){
+        //     $(".sk-chasing-dots,.sk-child,sk-dot1,sk-dot2");
+        //     $("#preloader").delay(100).fadeOut("fast");
+        // });
+
+        $(function(){
+            var $window = $(window);        //Window object
+            var scrollTime = 1.2;           //Scroll time
+            var scrollDistance = 350;       //Distance. Use smaller value for shorter scroll and greater value for longer scroll
+        
+        $window.on("mousewheel DOMMouseScroll", function(event){
+            event.preventDefault(); 
+                                        
+            var delta = event.originalEvent.wheelDelta/120 || -event.originalEvent.detail/3;
+            var scrollTop = $window.scrollTop();
+            var finalScroll = scrollTop - parseInt(delta*scrollDistance);
+            
+            TweenMax.to($window, scrollTime, {
+            scrollTo : { y: finalScroll, autoKill:true },
+                ease: Power1.easeOut,   //For more easing functions see http://api.greensock.com/js/com/greensock/easing/package-detail.html
+                autoKill: true,
+                overwrite: 5                            
+            });
+        });
+    });
+
+    </script>
+
+</head>
+<body>
+    <!-- <div id="preloader">
+        <div id="status">
+            <div class="sk-chasing-dots">
+                <div class="sk-child sk-dot1"></div>
+                <div class="sk-child sk-dot2"></div>
+            </div>
+        </div>
+    </div> -->
+            
+            <%= render('/shared/message') %>
+
+        <div class="container-fluid" style="background: #f5f5f5">
+
+            <div class="row" style="background-image: url(/assets/back1.png);background-size: 100% 100%;">
+                <div class=" dummy dummy-menu">
+                <!-- <div>Go To Panel</div> -->
+                        <ul>
+                            <% if session[:user_type] && session[:user_type] == "chef" %>
+                                <li><span class="fa fa-arrow-left" style="color:#fff;"></span><%= link_to("Go To Panel",{:controller=>"chef"}) %></li>
+                            <% elsif session[:user_type] && session[:user_type] == "admin" %>
+                                <li><span class="fa fa-arrow-left" style="color:#fff;"></span><%= link_to("Go To Panel",{:controller=>"admin"}) %></li>
+                            <% end %>
+                            <li><a class="tool tool-effect-1" id="home">Home<span class="tool-content"><i class="fa fa-fw fa-home"></i></span></a></li>
+                            <li><a class="tool tool-effect-2" id="about">About me<span class="tool-content"><i class="fa fa-fw fa-user"></i></span></a></li>
+                            <li><a class="tool tool-effect-3" id="dishes">Dishes<span class="tool-content"><i class="fa fa-fw fa-cutlery"></i></span></a></li>
+                            <li><a class="tool tool-effect-5" id="contact">Contact<span class="tool-content"><i class="fa fa-fw fa-envelope"></i></span></a></li>
+                            <li class="navbar-form" role="search">
+                                <%= form_for :dish,:url=>{:controller=>'dish',:action=>"allDish"},:html=>{:id=>"search_form"} do %>
+                                <div class="input-group add-on">
+                                    <input type="text" class="form-control" placeholder="Search" name="srch" id="srch"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="searchValidation()"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                                <% end %>
+                            </li>
+                            <li>
+                                <% if session[:name] %>
+                                    <a href="/login/logout"><button class="SL"><span class='fa fa-sign-out'>&nbspLogout</span></button></a>
+                                <% else %>
+                                    <button class="SL pop-up"><span class='fa fa-sign-in'>&nbspSignUp/LogIn</span></button>
+                                <% end %>   
+                            </li>
+                            <li>
+                                <i class="fa fa-shopping-cart fa-2x cart" style="color:#fff;cursor:pointer;">
+                                    <span style="font-size:24px;"><%= session[:cart_size] %></span>
+                                </i>
+                            </li>
+                        </ul>
+                </div>
+                <div class="svg_menu">
+                    <nav id="menu" class="menu">
+                        <div class="morph-shape" data-morph-open="M260,500H0c0,0,8-120,8-250C8,110,0,0,0,0h260c0,0-8,110-8,250C252,380,260,500,260,500z">
+                            <svg width="100%" height="100%" viewBox="0 0 260 500" preserveAspectRatio="none">
+                                <path fill="none" d="M260,500H0c0,0,0-120,0-250C0,110,0,0,0,0h260c0,0,0,110,0,250C260,380,260,500,260,500z"/>
+                            </svg>
+                        </div>
+                        <button class="menu__label"><i class="fa fa-fw fa-bars"></i><span>Open Menu</span></button>
+                        <ul class="menu__inner">
+                            <li><a id="home"><i class="fa fa-fw fa-home"></i><span>Home</span></a></li>
+                            <li><a id="about"><i class="fa fa-fw fa-info-circle"></i><span>About Us</span></a></li>
+                            <li><a id="dishes"><i class="fa fa-fw fa-cutlery"></i><span>Dishes</span></a></li>
+                            <li><a id="contact"><i class="fa fa-fw fa-mobile"></i><span>Contact</span></a></li>
+                            <li><a id="map"><i class="fa fa-fw fa-map-marker"></i><span>Map</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <%= render ("/shared/cart") %> 
+                <%= render ("/shared/checkout") %> 
+
+                <%= render ("/shared/log") %>
+                
+               
+
+                <div class="parallax-container" data-jkit="[parallax:strength=0.3;axis=both;scope=global]">
+                    <div class="parallax parallax1">
+                        <img class="img-responsive onion" src="/assets/onion.png">
+                    </div>
+                    <div class="parallax parallax2">
+                        <img class="img-responsive chopped" src="/assets/chopped.png">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <img class="img-responsive" src="/assets/slide1.png" style="margin-left: -16px;">
+                </div>
+                <div class="col-xs-4">
+                    <img class="img-responsive  logo" src="/assets/CL2.png">
+                </div>
+                <div class="col-xs-4">
+                    <img class="img-responsive" src="/assets/slide2.png">
+                    <div class="para-container" data-jkit="[parallax:strength=0.3;axis=both;scope=global]">
+                        <div class="para parallax4">
+                            <img class="img-responsive stuff" src="/assets/stuff.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-image: url(/assets/triangle.png);background-size: 100% 100%;">
+                <div class="col-xs-4 wow fadeInLeftBig">
+                    <img class="img-responsive" src="/assets/about.png" style="margin-left: -16px;">
+                </div>
+                <div class="col-xs-3 abt">ABOUT</div>
+                <div class="col-xs-5">
+                    <img class="img-responsive" src="/assets/bk.png">
+                    <div class="carousel-caption">
+                        <h3 class="abt_txt">Welcome.
+                            This is Royal plate.
+                            Elegant & sophisticated restaurant
+                            template. Royal plate offers different
+                            home page layouts with smart and
+                            unique design, showcasing beautifully
+                            designed elements every restaurant
+                            website should have. Smooth animations,
+                            fast loading and engaging user experience are
+                            just some of the features this template offers.
+                            So, give it a try and dive into a world
+                            of royal restaurant websites.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row dish_bg" style="">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-4 abt">ABOUT</div>
+                <div class="col-xs-4"></div>
+
+                <div class="container">
+                    <div class="col-xs-6">
+                        <div class="responsive-video">  
+                            <iframe style="border: 10px solid transparent;padding: 15px;border-image-source: url(/assets/1.png);border-image-repeat: round;border-image-slice: 40;border-image-width: 20px;" 
+                                src="http://www.youtube.com/embed/Q2GYBbd-nxo">
+                            </iframe>
+                        </div>  
+                    </div>
+                    <div class="col-xs-6"></div>
+                </div>
+            </div>
+
+            <div class="row sld plate" style="background-image: url(/assets/back3.png);background-size:contain;background-repeat: no-repeat;overflow-x: hidden;background-attachment:fixed;">
+                <h4 class="abt" style="text-align:center;">DISHES</h4>
+                <div id="slideshow" class="slideshow">
+                    <% @dish.each do |d| %>
+                        <div class="slide">
+                            <h2 class="slide__title slide__title--preview"><%= d.dish_name %><span class="slide__price">Rs. <%= d.price %></span></h2>
+                            <div class="slide__item">
+                                <div class="slide__inner">
+                                    <div>     
+                                        <%= image_tag ("/uploads/images/#{d.dish_image}"),:alt=>"Some image",:size=>"250x250",:style=>"border-radius:50%" %>
+                                    </div>
+                                    <button class="action action--open" aria-label="View details"><i class="fa fa-plus"></i></button>
+                                    <div class="opening opener"><a href="/dish/dishDetail/<%= d.id %>"><i class="fa fa-plus" style="color:#fff"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                    <button class="action action--close" id="close_btn" aria-label="Close"><i class="fa fa-close"></i></button>
+                    <div class="container">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <a href="/dish/allDish"><div class="bt">More Dishes</div></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="background: #333333">
+                <h2 class="abt" style="text-align:center;">CONTACT</h2>
+                <div class="col-xs-3">
+                    <img class="img-responsive" src="/assets/mill1.png" style="transform: rotateY(180deg);float: left">
+                </div>
+                <div class="col-xs-3">
+                    <span class="input input--shoko">
+                        <input class="input__field input__field--shoko" type="text" id="input-4" />
+                        <label class="input__label input__label--shoko" for="input-4">
+                            <span class="input__label-content input__label-content--shoko">Name</span>
+                        </label>
+                        <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                            <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+                            <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"/>
+                        </svg>
+                    </span><br>
+                    <span class="input input--shoko">
+                        <input class="input__field input__field--shoko" type="text" id="input-4" />
+                        <label class="input__label input__label--shoko" for="input-4">
+                            <span class="input__label-content input__label-content--shoko">Email</span>
+                        </label>
+                        <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                            <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+                            <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"/>
+                        </svg>
+                    </span><br>
+                    <span class="input input--shoko">
+                        <input class="input__field input__field--shoko" type="text" id="input-4" />
+                        <label class="input__label input__label--shoko" for="input-4">
+                            <span class="input__label-content input__label-content--shoko">Phone No.</span>
+                        </label>
+                        <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                            <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"/>
+                            <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"/>
+                        </svg>
+                    </span>
+                </div>
+                <div class="col-xs-3"><br><br>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="5" id="comment" placeholder="Comment" style="background:none;border: 3px solid #a09c9c;"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-default">Send</button>
+                </div>
+                <div class="col-xs-3">
+                    <img class="img-responsive" src="/assets/mill1.png" style="float: right">
+                </div>
+            </div>
+            <div class="row">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1076.651826546817!2d75.57386635630965!3d31.320572468358904!2m3
+                !1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1461663549506" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="/assets/jquery.catslider.js"></script>
+        <script>
+            $(function() {
+
+                $( '#mi-slider' ).catslider();
+
+            });
+        </script>
+
+        <script src="/assets/jara/jquery.easing.min.js"></script>
+        <script src="/assets/jara/modernizr.custom.42534.js" type="text/javascript"></script>
+        <script src="/assets/jara/jquery.waitforimages.js" type="text/javascript"></script>
+        <script src="/assets/jara/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+        <script src="/assets/jara/jquery.jkit.1.2.16.min.js"></script>
+        <script src="/assets/jara/script.js" type="text/javascript"></script>
+
+        <!-- <script src="js/classie.js"></script> -->
+        <script src="/assets/jara/mo.min.js"></script>
+        <script src="/assets/jara/demo.js"></script>
+        
+        <script src="/assets/classie.js"></script>
+        <script src="/assets/dynamics.min.js"></script>
+        <script src="/assets/main.js"></script>
+        <script>
+            (function() {
+                document.documentElement.className = 'js';
+                var slideshow = new CircleSlideshow(document.getElementById('slideshow'));
+            })();
+        </script>
+
+        <script src="/assets/jara/classie.js"></script>
+        <script>
+            (function() {
+
+                function SVGDDMenu( el, options ) {
+                    this.el = el;
+                    this.init();
+                }
+
+                SVGDDMenu.prototype.init = function() {
+                    this.shapeEl = this.el.querySelector( 'div.morph-shape' );
+
+                    var s = Snap( this.shapeEl.querySelector( 'svg' ) );
+                    this.pathEl = s.select( 'path' );
+                    this.paths = {
+                        reset : this.pathEl.attr( 'd' ),
+                        open : this.shapeEl.getAttribute( 'data-morph-open' )
+                    };
+
+                    this.isOpen = false;
+
+                    this.initEvents();
+                };
+
+                SVGDDMenu.prototype.initEvents = function() {
+                    this.el.addEventListener( 'click', this.toggle.bind(this) );
+                        
+                    // For Demo purposes only
+                    [].slice.call( this.el.querySelectorAll('a') ).forEach( function(el) {
+                        el.onclick = function() { return false; }
+                    } );
+                };
+
+                SVGDDMenu.prototype.toggle = function() {
+                    var self = this;
+
+                    if( this.isOpen ) {
+                        classie.remove( self.el, 'menu--open' );
+                    }
+                    else {
+                        classie.add( self.el, 'menu--open' );
+                    }
+
+                    this.pathEl.stop().animate( { 'path' : this.paths.open }, 320, mina.easeinout, function() {
+                        self.pathEl.stop().animate( { 'path' : self.paths.reset }, 1000, mina.elastic );
+                    } );
+
+                    this.isOpen = !this.isOpen; 
+                };
+
+                new SVGDDMenu( document.getElementById( 'menu' ) );
+
+            })();
+        </script>
+
+
+</body>
+</html>

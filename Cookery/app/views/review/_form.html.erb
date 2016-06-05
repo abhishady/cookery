@@ -1,0 +1,13 @@
+<%= render "shared/errors", obj: @review %>
+<div class="form-group">
+	    <label for="email">Email:</label>
+	    <%= collection_select(:review, :user_id, User.where(is_staff: true), :id, :email, prompt: true ,:class=> "form-control", :style => "width:50%;") %>
+	</div>
+	<div class="form-group">
+	    <label for="dish_name">Dish Name:</label>
+	    <%= collection_select(:review, :dish_id, Dish.where(user_id: session[:id]), :id, :dish_name, prompt: true ,:class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="description">Description</label>
+    <%= f.text_area(:description , :class=> "form-control", :style => "width:50%;") %>
+</div>

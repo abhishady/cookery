@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Panel</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  	<%= stylesheet_link_tag "admin" %>
+  	<%= javascript_include_tag "" %>
+</head>
+<body>
+	<div class="container-fluid menu_wrapper">
+        <div class="container">
+            <div class="row menu_holder">
+                <h1 class="col-lg-10 sitename">Admin Panel</h1>
+                <div class="col-lg-2">
+                    <a href="/login/logout"><h1>Logout</h1></a>
+                </div>
+            </div>
+        </div>
+     </div>
+		<div class="container-fluid">
+			<div class="col-lg-2 sidebar_menu">
+				<div class=" sidebar_txt"></div><br><br>
+				<div class=" sidebar_txt userss" data-toggle="collapse" data-target="#demo1"><span class="glyphicon glyphicon-user"></span> Users</div><br>
+				<div id="demo1" class="collapse">
+						<div class="cata_option add_com"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp <%= link_to("Add Users",{controller:"user",action:"new"}) %></div><br>
+						<div class="cata_option del_com"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp <%= link_to("View Users",{controller:"user",action:"list"}) %></div><br>
+				</div>
+
+				<div class=" sidebar_txt userss" data-toggle="collapse" data-target="#demo2"><span class="glyphicon glyphicon-user"></span> User Detail</div><br>
+				<div id="demo2" class="collapse">
+						<div class="cata_option add_com"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp <%= link_to("Add Users",{controller:"userdetail",action:"new"}) %></div><br>
+						<div class="cata_option del_com"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbsp <%= link_to("View Users",{controller:"userdetail",action:"list"}) %></div><br>
+				</div>
+				<div class=" sidebar_txt userss"><span class="glyphicon glyphicon-cutlery"></span> <%= link_to("Dishes",{controller:"dish",action:"list"}) %></div><br>
+				<div class="sidebar_txt catamain" ><span class="glyphicon glyphicon-comment"></span> <%= link_to("Reviews",{controller:"review",action:"adminReview"}) %></div><br> 
+				<div class=" sidebar_txt"><span class="glyphicon glyphicon-list-alt"></span> Billing</div><br>
+				<div class=" sidebar_txt"><span class="glyphicon glyphicon-shopping-cart"></span> Shipping</div><br>
+				<div class=" sidebar_txt"><span class="glyphicon glyphicon-sort-by-order"></span> Order Detail</div><br>
+				<div class=" sidebar_txt"><span class="glyphicon glyphicon-sort-by-order-alt"></span> Order Master</div><br>
+				<div class=" sidebar_txt"> &nbsp<%= link_to("Go To Home",{:controller=>"home"}) %>&nbsp<span class="glyphicon glyphicon-arrow-right"></span></div><br>
+				<div class=" sidebar_txt"> &nbsp<%= link_to("Go To Dish Page",:controller=>"dishes") %>&nbsp<span class="glyphicon glyphicon-arrow-right"></span></div><br>
+			</div>
+			<div class="col-lg-10 menu_optionn">
+					<div class="col-lg-14" style = "margin-top:20px;">
+						<% flash.each do |name, msg| %>
+							<div class="alert alert-<%= name %> %>">
+								<a href="" class="close" data-dismiss="alert">&#215;</a>
+								<%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+							</div>
+						<% end %>
+					</div>
+				<%= yield %>
+            </div>
+		</div>
+		<script>
+			$(document).ready(function(){
+    		$('[data-toggle="tooltip"]').tooltip();   
+			});
+		</script>
+
+</body>
+</html>
+	

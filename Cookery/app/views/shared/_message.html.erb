@@ -1,0 +1,18 @@
+
+<script>
+	$(document).ready(function(){
+
+        setTimeout(function(){
+            $(".notice_wrapper").fadeOut('slow', function(){
+                $(this).remove();
+            });
+        },2000);
+    });
+</script>
+
+
+<% if flash[:notice] %>
+	<div class="notice_wrapper">
+	    <p class="notice"><%= flash[:notice] %></p>
+	</div>
+<% end %>

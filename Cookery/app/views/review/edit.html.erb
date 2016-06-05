@@ -1,0 +1,11 @@
+<div class="container">
+	<h1 style="font-family:tahoma;">Edit Review</h1>
+</div>
+<div class="row" style="padding-left: 20px;"><br>
+    <%= form_for :review, :url=>{:action=>'update',:id=> @review}, :multipart => true do |f| %>
+        
+        <%= render(:partial => "form", :locals => {:f => f}) %>
+
+        <%= submit_tag("Save",:class=>"btn btn-success") %>
+    <% end %>
+</div>

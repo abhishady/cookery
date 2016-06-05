@@ -1,0 +1,23 @@
+<%= render "shared/errors", obj: @user %>
+<div class="form-group">
+    <label for="name">Name:</label>
+    <%= f.text_field(:name , :placeholder=> "Username", :class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="email">Email:</label>
+    <%= f.text_field(:email , :placeholder=> "Email", :class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="pwd">Password:</label>
+    <%= f.password_field(:password , :placeholder=> "Password", :class=> "form-control", :style => "width:50%;") %>
+</div>
+<!--  -->
+<div class="checkbox">
+    <label><%= f.check_box(:is_admin) %> Is Admin</label>
+</div>
+<div class="checkbox">
+    <label><%= f.check_box(:is_staff) %> Is Staff</label>
+</div>
+<div class="checkbox">
+    <label><%= f.check_box(:is_active) %> Is Active</label>
+</div>

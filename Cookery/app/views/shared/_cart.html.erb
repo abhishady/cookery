@@ -1,0 +1,187 @@
+<style type="text/css">
+    .cart_dec_qty{
+        width: 25px;
+        height: 25px;
+        border: 2px solid #414146;
+        color:#414146;
+        font-size:12px;
+        text-align:center;
+        border-radius: 50%;
+        cursor:pointer;
+        float: left;
+        margin:3px;
+}
+.edit_qty_div{
+        width: 29px;
+        height: 25px;
+        border: 2px solid #414146;
+        color:#414146;
+        font-size:12px;
+         text-align:center;
+         float: left;
+          margin:3px;
+     }
+.cart_inc_qty{
+        width: 25px;
+        height: 25px;
+        font-size:12px;
+        border: 2px solid #414146;
+        color:#414146;
+        border-radius: 50%;
+        cursor:pointer;
+         text-align:center;
+         float: left;
+          margin:3px;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $(".cart").click(function(){
+            $(".crt_container").addClass("animated flipInY").css({"display":"block"});
+            $(".crt_container").removeClass("flipOutX");
+        });
+        $(".closey").click(function(){
+              $(".crt_container").addClass("flipOutX");
+              $(".crt_container").removeClass("flipInY");
+        });
+        $(".pclose").click(function(){
+              $(".crt_container").addClass("flipOutX");
+              $(".proceed_container").addClass("animated flipInY").css({"display":"block"});
+              $(".proceed_container").removeClass("flipOutX");
+        });
+
+        
+
+        $(".close_edit_cart").click(function(){
+              $(".crtedit_container").addClass("flipOutX");
+              $(".crtedit_container").removeClass("flipInY");
+        });
+    });
+
+    function editCart(id)
+        {
+              $(".crt_container").addClass("flipOutX"); 
+              $(".crtedit_container").addClass("animated flipInY").css({"display":"block"});
+              $('.edit_dish_name').text($('.cart_dish_name_'+id).text());
+              $('.edit_qty_div').text($('.cart_qty_div_'+id).text());
+              $('.edit_price').text($('.cart_price_'+id).text());
+              $('.edit_total_price').text($('.cart_total_price_'+id).text());
+              $('#dish_id').val(id);
+              $(".crtedit_container").removeClass("flipOutX");
+        }
+        function incQty()
+            {
+                $(".edit_qty_div").text( Number($(".edit_qty_div").text()) + 1 );
+                $(".edit_total_price").text( Number($(".edit_qty_div").text()) * Number($('.edit_price').text()));
+                $("#edit_qty_field").val($(".edit_qty_div").text());
+            }
+            function decQty()
+            {
+                $(".edit_qty_div").text( Math.max(1,Number($(".edit_qty_div").text()) - 1 ));
+                $(".edit_total_price").text( Number($(".edit_qty_div").text()) * Number($('.edit_price').text()));
+                 $("#edit_qty_field").val($(".edit_qty_div").text());
+            }
+</script>
+<div class="crt_container">
+    <div class="container" style="top:20%;">
+        <div class="jumbotron" style="width:70%;height:auto ;margin:auto;font-size:20px;font-family:verdana;">
+        
+            <div class="row">
+                <div class="closey"><i class="fa fa-times" style="cursor:pointer;margin-left:100%;"></i></div>
+                <div class="col-xs-6">Item</div>
+                <div class="col-xs-2">Qty</div>
+                <div class="col-xs-1" style="padding:0px 0px 0px 5px;">Price</div>
+                <div class="col-xs-2" style="padding:0px 0px 0px 5px;">Total</div>
+                <div class="col-xs-1"></div>
+            </div>
+            <hr style="color:#999;background-color:#999;height:1px;">
+        <% @total = 0 %>
+        <% if session[:cart_size]==0 || !session[:dishes] %>
+            <div class="row" style="text-align:center;">
+                No Item in Cart
+            </div>
+        <% else %>
+            <% @cart.each do|d| %>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div style="float:left;"><%= image_tag("/uploads/images/#{d.dish_image}", :style=>"width:50px;height:50px;border-radius:50%;") %></div>
+                        <div class="cart_dish_name_<%= d.id %>" style="float:left;padding:10px 0px 0px 5px;font-size:17px;"><%= d.dish_name %></div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="cart_qty_div_<%= d.id %>"style="padding-top:8px;"><%= @qty["#{d.id}"] %></div>
+                    </div>
+                    
+                    <div class="col-xs-1" style="float:left;padding:10px 0px 0px 5px;font-size:17px;">Rs.<span class="cart_price_<%= d.id %>"> <%= d.price %></span></div>
+                    <div class="col-xs-2 " style="float:left;padding:10px 0px 0px 5px;font-size:17px;">Rs. <span class="cart_total_price_<%= d.id %>"><%= d.price.to_i * @qty["#{d.id}"].to_i %></span></div>
+                     <% @total += d.price.to_i * @qty["#{d.id}"].to_i %>
+                    <div class="col-xs-1" style="float:left;padding:10px 0px 0px 5px;font-size:17px;">
+                        <i class="fa fa-edit edit_cart" style="cursor:pointer;" onclick="editCart(<%= d.id %>)"></i> |
+                        <%= link_to raw("<i class='fa fa-trash-o' data-toggle='tooltip' data-placement='top' title='Delete' style='cursor:pointer;'></i>"),{controller:"home",action:"deleteCart", :id=> d.id} %>
+                    </div>
+                </div>
+                <hr>
+            <% end %>
+        <% end %>
+            <% if @total>0 %>
+            <div class="row">
+                <div class="col-xs-6"></div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-1">Total</div>
+                <div class="col-xs-2">Rs. <%= @total %></div>
+                <div class="col-xs-1"></div>
+            </div>
+            <hr style="color:#999;background-color:#999;height:1px;">
+            <div class="row">
+                <div class="col-xs-6"><%= link_to raw("<i class='fa fa-arrow-left'style='cursor:pointer;'></i> Continue Shopping"),{controller:"dish",action:"allDish"} %></div>
+                <div class="col-xs-6"><button class="btn btn-primary <%= session[:name] ? 'pclose' : 'pop-up' %>" style="float:right;">Proceed</button></div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+
+<div class="crtedit_container">
+    <div class="container" style="top:20%;">
+        <div class="jumbotron" style="width:70%;height:auto ;margin:auto;font-size:20px;font-family:verdana;">
+        
+            <div class="row">
+                <div class="close_edit_cart"><i class="fa fa-times" style="cursor:pointer;margin-left:100%;"></i></div>
+                <div class="col-xs-6">Item</div>
+                <div class="col-xs-2">Qty</div>
+                <div class="col-xs-1" style="padding:0px 0px 0px 5px;">Price</div>
+                <div class="col-xs-2" style="padding:0px 0px 0px 5px;">Total</div>
+                <div class="col-xs-1"></div>
+            </div>
+            <hr style="color:#999;background-color:#999;height:1px;">
+            <%= form_for :home,:url=>{:controller=>"home",:action=>"updateCart"} do|f| %>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="edit_dish_name"style="float:left;padding:10px 0px 0px 5px;font-size:17px;"></div>
+                    </div>
+                    <div class="col-xs-2" style="padding-top:8px;">
+                        <div class="cart_dec_qty" onclick="decQty()">-</div>
+                        <div class="edit_qty_div"></div>
+                        <div class="cart_inc_qty" onclick="incQty()">+</div>
+                    </div>
+                    <%= f.hidden_field(:quantity,:value=>'',:id=>"edit_qty_field") %>
+                    <%= f.hidden_field("dish_id",:value=>'',:id=>"dish_id") %>
+                    <div class="col-xs-1" style="float:left;padding:10px 0px 0px 5px;font-size:17px;">Rs.<span class="edit_price"> </span></div>
+                    <div class="col-xs-2 " style="float:left;padding:10px 0px 0px 5px;font-size:17px;">Rs. <span class="edit_total_price"></span></div>
+                     
+                    <div class="col-xs-1" style="float:left;padding:10px 0px 0px 5px;font-size:17px;">
+                       
+                    </div>
+                </div>
+        
+            <hr style="color:#999;background-color:#999;height:1px;">
+            <div class="row">
+                <div class="col-xs-6"></div>
+                <div class="col-xs-6"><button type="submit" class="btn btn-primary" style="float:right;">Update</button></div>
+            </div>
+            <% end %>
+        </div>
+        </div>
+    </div>
+

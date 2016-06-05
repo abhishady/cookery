@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/assets/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/demo.css" />
+    <link rel="stylesheet" href="/assets/font/font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/animate.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/dish.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/hover.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</head>
+<body style="background:#1e2939;">
+ 	
+		<div class="container-fluid">
+			<div class="row">
+				<div class="container">
+					<div class="col-xs-4">
+						<img class="img-responsive" src="/assets/COOKERYLOGO.PNG" alt="LOGO" width="200px;height:200px;">
+					</div>
+					<div class="col-xs-8">
+						<div style="font-size:30px;padding:75px;color:#fff;">Review Your Orders</div>
+					</div>					
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="container">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-6 well">
+						<div class="col-lg-6">
+							<h3>Shipping Address</h3>
+							<h4><%= @address.name %></h4>
+							<h4><%= @address.address %></h4>
+							<h4><%= @address.city%>, <%= @address.state %>, <%= @address.pincode %></h4>
+							<h4>India</h4>
+							<h4>Phone: <%= @address.contact %></h4>
+						</div>
+						<div class="col-lg-6">
+							<h3>Payment Method</h3>
+							<h4><%= @xyz.mop %></h4>
+						</div>
+					</div>
+					<div class="col-lg-1"></div>
+					<div class="col-lg-3 well">
+						<h3>&nbsp&nbspOrder Summary</h3>
+						<div class="col-lg-8">
+							<h5>Items:<span style="float:right"><%= @xyz.no_of_dish %></span></h5>
+							<h5>Deivery:<span style="float:right"><i class="fa fa-inr"></i>:0.00</span></h5>
+							<hr style="border:1px solid;">
+							<h4>Order Total:<span style="float:right"><%= @xyz.total_cost %></span></h4>
+							<hr style="border:1px solid;">
+							<a href="/home/placeOrder" class="btn btn-warning">Place Order</a>
+						</div>
+						
+					</div>
+					<div class="col-lg-1"></div>
+                </div>
+			</div>
+			<div class="row">
+					
+			</div>
+		</div>
+
+</body>
+</html>

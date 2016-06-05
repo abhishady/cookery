@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dishes</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/assets/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/demo.css" />
+    <link rel="stylesheet" href="/assets/font/font-awesome-4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/dish.css">
+    <link rel="stylesheet" href="/assets/animate.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+     <script>
+    //     $(window).load(function(){
+    //         $(".sk-chasing-dots,.sk-child,sk-dot1,sk-dot2");
+    //         $("#preloader").delay(0).fadeOut("slow");
+    //     });
+     </script>
+    <script type="text/javascript">
+        $(function(){
+              $(".crt").mouseenter(function(event) {
+                  $(this).addClass("animated bounceInLeft");
+              });
+          
+              $(".crt").on("webkitAnimationEnd mozAnimationEnd oAnimationEnd animationEnd", function(event) {
+                  $(this).removeClass("animated bounceInLeft");
+              });
+        });
+        
+            function increaseQty(id)
+            {
+                $(".qty_div_"+id).text( Number($(".qty_div_"+id).text()) + 1 );
+                $('#qty_field_'+id).val($(".qty_div_"+id).text());
+            }
+            function decreaseQty(id)
+            {
+                $(".qty_div_"+id).text( Math.max(1,Number($(".qty_div_"+id).text()) - 1 ));
+                $('#qty_field_'+id).val($(".qty_div_"+id).text());   
+            }
+    </script>
+    <style type="text/css">
+        
+    </style>
+</head>
+<body style="background:#fbfbfb;">  
+   <!--  <div id="preloader">
+        <div id="status">
+            <div class="sk-chasing-dots">
+            <div class="sk-child sk-dot1"></div>
+            <div class="sk-child sk-dot2"></div>
+        </div>
+        </div>
+    </div>   -->  
+            <%= render('/shared/message') %>
+    
+		<div class="container-fluid">
+			<div class="row bg" style="background-image:url(/assets/dish.jpg);background-attachment: fixed;background-size: cover;height:900px;">
+                <div class="container wow fadeIn" style="border:solid 1px #fff;width:70%;top:10%;">
+                    <div class="ico wow fadeInUp"><span class="fa fa-cutlery"></span></div>
+                    <div class="dish wow fadeInDown">DISHES</div>
+                </div>
+            </div>
+        </div>
+         <%= render ("/shared/cart") %>  
+
+            <%= render ("/shared/log") %>
+
+               <%= render ("/shared/checkout") %> 
+
+
+        <div class="container-fluid">
+            <div class="row" style="background-image:url(/assets/dishbg.png);background-size:100% 100%;height:730px;">
+                <div class="container">
+                    <div class="col-xs-7 category wow fadeIn" style="font-size:80px;padding:100px 0px 100px 0px;">Dishes</div>
+                    <div class="col-xs-4" style="padding:100px 0px 100px 0px;">
+                        <div class="col-xs-2" style="padding:28px;"><a href="/home"><span style="font-family:verdana;font-size:50px;color:#fff;"><i class="fa fa-home" data-toggle='tooltip' data-placement='top' title='Home' style="cursor:pointer;"></i></span></a></div>
+                        <% if session[:name] %>
+                            <div class="col-xs-2" style="padding:28px;"><a href="/login/logout"><span style="font-family:verdana;font-size:50px;color:#fff;"><i class="fa fa-sign-out" data-toggle='tooltip' data-placement='top' title='Logout' style="cursor:pointer;"></i></span></a></div>
+                        <% else %>
+                            <div class="col-xs-2" style="padding:28px;"><span style="font-family:verdana;font-size:50px;color:#fff;"><i class="fa fa-sign-in pop-up" data-toggle='tooltip' data-placement='top' title='Login' style="cursor:pointer;"></i></span></div>
+                        <% end %>
+                        <div class="col-xs-1" style="padding:28px;"><span style="font-family:verdana;font-size:50px;color:#fff;"><i class="fa fa-shopping-cart cart" data-toggle='tooltip' data-placement='top' title='Cart' style="cursor:pointer;">&nbsp;<span style="font-size:24px;"><%= session[:cart_size] %></span></i></span></div> 
+                    </div>
+                </div>
+                <div class="container wow zoomInDown" style="margin-top:4%;">
+                    <img class="img-responsive" src="/assets/veg.png" alt="veg" style="margin:auto;">
+                </div>
+            </div> 
+        </div><br><br>
+
+        <div class="container-fluid">   
+            <div class="row" style="background-image:url(/assets/bkg-img1.jpg);background-size:cover;">
+            
+            <% @dishes.each do|dish| %>
+            <%= form_for :home,:url=>{:controller=>"home",:action=>"add"},:method=>"get" do|f| %>
+                <div class="container" style="height:400px;">
+                        <div class="col-md-6 wow fadeInLeft">
+                            <div class="ih-item circle effect1">
+                                <a href="/dish/dishDetail/<%= dish.id %>">
+                                    <div class="spinner"></div>
+                                    <div class="img"><%= image_tag("/uploads/images/#{dish.dish_image}") %></div>
+                                    <div class="info">
+                                            <div class="info-back">
+                                            <span class="fa fa-cutlery fa-3x" style="color:#fff;"></span>
+                                            <h3>See Recipie Here</h3>
+                                            </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- end normal -->
+                        </div>
+
+                        <div class="col-md-6 wow fadeInRight">
+                            <%= f.hidden_field("dish_id", :value => dish.id ) %>
+                            <h2 class="dd"><i class="fa fa-cutlery"><span class="dd"> <%= dish.dish_name %></span> </i></h2>
+                            <h2 class="dd"><i class="fa fa-tags"><span class="dd"> <%= dish.category_name %></span> </i></h2>
+                            <h2 class="dd"><i class="fa fa-user"><span class="dd"> <%= dish.user.name %></span> </i></h2>
+                            <h2 class="dd"><i class="fa fa-inr"><span class="dd"> <%= dish.price %></span> </i></h2><br>
+                            <div class="col-xs-3" style="background:#ff3f34;">
+                                <div class="dec_qty" onclick="decreaseQty(<%= dish.id %>)">-</div>
+                                <div class="qty_div qty_div_<%= dish.id %>">1</div>
+                                <div class="inc_qty" onclick="increaseQty(<%= dish.id %>)">+</div>
+                                    <%= f.hidden_field(:quantity,:value=>"1",:id=>"qty_field_"+dish.id.to_s) %>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-danger" style="height:40px;background:#ff3f34;">
+                                    <span class="fa fa-shopping-cart"></span> Add To Cart
+                                </button>
+                            </div>
+                            
+                        </div>
+
+                </div>
+                <% end %>
+                <hr style="color:#999;background-color:#999;height:1px;"            >
+                <% end %>
+
+            </div>
+        </div>
+
+            <script src="/assets/app.js"></script>
+</body>
+</html>

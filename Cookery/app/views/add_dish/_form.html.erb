@@ -1,0 +1,31 @@
+<%= render "shared/errors", obj: @dish %>
+<div class="form-group">
+    <label for="category">Select Category:</label>
+    <%= f.select(:category_name , options_for_select([["Veg","Veg"],["Non-Veg","Non-Veg"]], selected: :category_name), :class=>'form-control',:style => "width:50%;") %>
+</div>
+        <%= f.hidden_field :user_id, value: session[:id] %>
+
+<div class="form-group">
+    <label for="date">Date:</label>
+    <%= f.date_field(:date , :class=> "form-control", :style => "width:15%;") %>
+</div>
+<div class="form-group">
+    <label for="dishname">Dish Name:</label>
+    <%= f.text_field(:dish_name , :placeholder=> "Dish Name", :class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="method">Method:</label>
+    <%= f.text_area(:method , :placeholder=> "Write Method Here...", :class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="ingredients">Ingredients:</label>
+    <%= f.text_area(:ingredients , :placeholder=> "Write Ingredients Here...Separate each ingredient by comma!!!", :class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="dish_image">Dish Image:</label>
+    <%= f.file_field(:dish_image , :class=> "form-control", :style => "width:50%;") %>
+</div>
+<div class="form-group">
+    <label for="price">Price:</label>
+    <%= f.text_field(:price , :placeholder=> "Price", :class=> "form-control", :style => "width:50%;") %>
+</div>

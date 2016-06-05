@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/assets/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/demo.css" />
+    <link rel="stylesheet" href="/assets/font/font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/animate.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/dish.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/bootstrap.min.js"></script>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script>
+    	function increaseQty(id)
+            {
+                $(".qty_div_"+id).text( Number($(".qty_div_"+id).text()) + 1 );
+                $('#qty_field_'+id).val($(".qty_div_"+id).text());
+            }
+            function decreaseQty(id)
+            {
+                $(".qty_div_"+id).text( Math.max(1,Number($(".qty_div_"+id).text()) - 1 ));
+                $('#qty_field_'+id).val($(".qty_div_"+id).text());   
+            }
+    </script>
+
+</head>
+<body>
+ 	
+            <%= render('/shared/message') %>
+
+		<div class="container-fluid">
+			<div class="row bg" style="background-image:url(/assets/recipie.jpg);background-attachment:fixed;background-size:cover;height:900px;">
+				<div class="container wow fadeIn" style="border:solid 1px #fff;width:70%;top:10%;">
+                    <div class="ico wow fadeInUp" style="color:#f5743c;"><span class="fa fa-cutlery"></span></div>
+                    <div class="dish wow fadeInDown" style="color:#f5743c;">Recipies</div>
+                </div>
+			</div>
+		</div>
+		<%= render ("/shared/cart") %> 
+
+        <%= render ("/shared/log") %>
+
+       <%= render ("/shared/checkout") %> 
+
+		<div class="container-fluid" style="background-image:url(/assets/bkg-img1.jpg);">
+			<div class="row">
+				<img class="img-responsive" src="/assets/recipiebg.jpg" alt="veg">
+			</div>
+			<div class="row">
+				<div class="container">
+					<div class="col-xs-12" style="border-top:2px solid #ff3f34;border-bottom:2px solid #ff3f34;border-left:2px solid #ff3f34;border-right:2px solid #ff3f34;">
+						<div class="col-xs-7">
+							<h1 class="recip_name"><%= @dish.dish_name %></h1>
+						</div>
+						<div class="col-xs-5" style="padding:59px 0px 50px 0px;">
+							<div class="col-xs-2" style="padding:28px;"><a href="/home"><span style="font-size:50px;font-family:verdana;color:#000;"><i class="fa fa-home" data-toggle='tooltip' data-placement='top' title='Home' style="cursor:pointer;"></i></span></a></div>
+		                     <% if session[:name] %>
+                         		<div class="col-xs-2" style="padding:28px;"><a href="/login/logout"><span style="font-family:verdana;font-size:50px;color:#000;"><i class="fa fa-sign-out" data-toggle='tooltip' data-placement='top' title='Logout' style="cursor:pointer;"></i></span></a></div>
+                    		<% else %>
+                        		<div class="col-xs-2" style="padding:28px;"><span style="font-family:verdana;font-size:50px;color:#000;"><i class="fa fa-sign-in pop-up" data-toggle='tooltip' data-placement='top' title='Login' style="cursor:pointer;"></i></span></div>
+                    		<% end %>
+		                    <div class="col-xs-1" style="padding:28px;"><span style="font-size:50px;font-family:verdana;color:#000;"><i class="fa fa-shopping-cart cart" data-toggle='tooltip' data-placement='top' title='Cart' style="cursor:pointer;" >&nbsp;<span style="font-size:30px;"><%= session[:cart_size] %></span></i></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="container" style="top:-40px;">
+					<div class="col-xs-6">
+						<div class="responsive-video">	
+							<iframe
+								src="http://www.youtube.com/embed/Q2GYBbd-nxo">
+							</iframe>
+						</div><br>
+						<div class="share">
+							<button class="share-toggle-button">
+								<i class="share-icon fa fa-share-alt"></i>
+							</button>
+							<ul class="share-items">
+								<li class="share-item">
+									<a href="http://www.facebook.com/sharer.php?u=https://simplesharebuttons.com" target="_blank" class="share-button">
+										<i class="share-icon fa fa-facebook"></i>
+									</a>
+								</li>
+								<li class="share-item">
+									<a href="https://plus.google.com/share?url=https://simplesharebuttons.com" target="_blank" class="share-button">
+										<i class="share-icon fa fa-google-plus"></i>
+									</a>
+								</li>
+								<li class="share-item">
+									<a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.insert-url-to-direct-to-here.html&media=http%3A%2F%2Fwww.insert-image-to-pin-url-here.jpg&description=This%20is%20a%20Pinterest%20description." class="share-button">
+										<i class="share-icon fa fa-pinterest"></i>
+									</a>
+								</li>
+								<li class="share-item">
+									<a href="http://twitter.com/intent/tweet?text=This%20is%20a%20test%20Twitter%20status.%20%23TwitterStatus%20http%3A%2F%2Fbit.ly%2F123456" target="_blank" class="share-button">
+										<i class="share-icon fa fa-twitter"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<%= form_for :home,:url=>{:controller=>"home",:action=>"add"} do |f| %>
+						<%= f.hidden_field(:dish_id,:value=>@dish.id)  %>
+						
+						<div class="col-lg-3" style="background:#C4332F;">
+							 <div class="dec_qty" onclick="decreaseQty(<%= @dish.id %>)">-</div>
+                             <div class="qty_div qty_div_<%= @dish.id %>">1</div>
+                             <div class="inc_qty" onclick="increaseQty(<%= @dish.id %>)">+</div>
+							<%= f.hidden_field(:quantity,:value=>"1",:id=>'qty_field_'+@dish.id.to_s)  %>
+	                	</div>
+	                	<div class="col-lg-3">
+	                        <button type="submit" class="btn btn-danger" style="height:40px;">
+	                            <span class="fa fa-shopping-cart"></span> Add To Cart
+	                        </button>
+	                	</div><br>	
+	                	<% end %>
+					</div>
+
+
+					<div class="col-xs-6" style="border:1px solid #ccc;margin-top:100px;">
+						<ul class="nav nav-tabs" style="padding:30px 0px 0px 0px;">
+						    <li class="active"><a data-toggle="tab" href="#cook"><span class="fa fa-clock-o"></span> Cook</a></li>
+						    <li><a data-toggle="tab" href="#ingredients"><span class="fa fa-cutlery"></span> Ingredients</a></li>
+						    <li><a data-toggle="tab" href="#menu2"><span class="fa fa-book"></span> Method</a></li>
+						    <li><a data-toggle="tab" href="#menu3"><span class="fa fa-comments"></span> Reviews</a></li>
+						</ul>
+							<div class="tab-content">
+							    <div id="cook" class="tab-pane fade in active">
+							      	<h3>COOK</h3>
+							      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							    </div>
+							    <div id="ingredients" class="tab-pane fade">
+							      	<h3>Ingredients</h3>
+							      		<% ingredients = @dish.ingredients %>
+							      		<% ingredients = ingredients.split(",") %>
+							      		<% ingredients.each do |ingredient| %>
+							      		<p><i class="fa fa-cutlery"></i>&nbsp;&nbsp;<%= ingredient %></p>
+							      		<% end %>
+							    </div>
+							    <div id="menu2" class="tab-pane fade">
+							      	<h3>Method</h3>
+							      	<% methods = @dish.method %>
+							      	<% methods = methods.split("/") %>
+							      	<% @x = 1 %>
+							      	<% methods.each do |method| %>
+							      		<p><code>Step:<%= @x %></code>&nbsp;&nbsp;<%= method %></p>
+							      		<% @x = @x + 1 %>
+							      	<% end %>
+							    </div>
+							    <div id="menu3" class="tab-pane fade">
+							      	<h3>Reviews</h3>
+							      	<% @reviews.each do|review| %>
+							      	<div class="well">
+							      		<h4 style="text-transform:captialize;"><%= review.user.name %></h4>
+							      		<%= review.description %>
+							      		<h6><%= time_ago_in_words(review.created_at) %> ago</h6>
+							      	</div>
+							      	<% end %>
+							      	<%= form_for :review,:url=>{:controller=>'home',:action=>'frontReview'},:html=>{:id=>"review_form"} do |f| %>
+							      		<%= f.hidden_field(:dish_id,:value=>@dish.id) %>
+							      		<%= f.hidden_field(:user_id,:value=>session[:id]) %>
+							      		<div class="form-group <%= session[:name] ? '':'pop-up'%>">
+  											<%= f.text_area(:description , :placeholder=> "Write review Here...", :class=> "form-control ") %>
+										</div>
+										<%= button_tag(:type=>"button",:onclick=>"commentValidation();",:class=>'btn btn-warning') do %>
+                                			 Submit
+                                		<% end %>
+									<% end %>
+							    </div><br>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+				<div class="col-lg-6">
+					
+				</div>
+				<div class="col-lg-6">
+					
+				</div>
+		</div>
+
+		<script src="/assets/jara/share.js"></script>
+		<script src="/assets/jara/TweenMax.min"></script>
+		<script>
+			function commentValidation()
+			{
+				cmnt = $("#review_description").val();
+				if(cmnt == "")
+				{
+					alert("First write something");
+				}
+				else
+				{
+					$("#review_form").submit();
+				}
+			}
+		</script>
+</body>
+</html>

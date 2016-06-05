@@ -1,0 +1,181 @@
+<script>
+        $(document).ready(function(){
+
+             $(".pop-up").click(function(){
+                  $(".modal_container").addClass("animated bounceIn").css({"display":"block"});
+                  $(".modal_container").removeClass("bounceOut");
+              });
+
+            $(".band").click(function(){
+                  $(".modal_container").addClass("bounceOut");
+                  $(".modal_container").removeClass("bounceIn");
+            });
+        });
+
+function loginValidation()
+        {
+            email = $("#user_email").val();
+            pwd = $("#user_password").val();
+            if(email =="")
+            {
+                alert("Please enter email");
+                $("#user_email").focus();
+                exit;
+            }
+            if(pwd=="")
+            {
+                alert("Please enter password");
+                $("#user_password").focus();   
+                 exit;
+            }
+            else
+            {
+                v1 = validateEmail(email)
+                if(v1)
+                {
+                    $("#login_form").submit();
+                }
+                else
+                {
+                    alert("Wrong email format");
+                     $("#user_email").focus();
+                      exit;
+                }
+            }
+            function validateEmail(email)
+            {
+                var atpos = email.indexOf("@");
+                var dotpos = email.lastIndexOf(".");
+                if (atpos < 1 || dotpos<atpos+2 || dotpos+2 >= email.length) {
+                  return false;
+                }
+                else{
+                  return true;
+                }
+            }
+        }
+
+</script>
+<div class="modal_container">
+    <div class="band pull-right" style="margin:20px;font-size:50px;cursor:pointer;color:#fff;">&times;</div>
+    <div class="container">
+        
+        <div class="jumbotron" style="width:40%;background:#FD795B;margin:auto;">
+            
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#login">LogIn</a></li>
+                    <li><a data-toggle="tab" href="#menu1">SignUp</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="login" class="tab-pane fade in active">
+                        
+                            <div style="font-family:monotype corsiva;text-align:center;font-size:50px;">LogIn</div>
+                            <%= form_for :user, :url=>{:controller=>'login',:action=>'authenticateUser'},:html=>{:id=>"login_form"}, :method=>'get' do |f| %>
+                            <div class="form-group">
+                              <label for="usrname" style="font-size:20px;font-family:monotype corsiva;"><span class="fa fa-envelope"></span> EMAIL</label>
+                               <%= f.text_field(:email , :placeholder=> "Email", :class=> "form-control") %>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="psw" style="font-size:20px;font-family:monotype corsiva;"><span class="fa fa-key"></span> PASSWORD</label>
+                               <%= f.password_field(:password , :placeholder=> "Password", :class=> "form-control") %>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xm-6">
+                                <%= button_tag(:type=>"button",:onclick=>"loginValidation();",:class=>'btn btn-success') do %>
+                                <i class="fa fa-sign-in"></i> Login
+                                <% end %>
+                                <!-- <button type="submit" class="btn btn-default btn-success"><span class="glyphicon glyphicon-off"></span> Login</button> -->
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xm-6" style="text-align:right;">
+                                    <a><span class="sign_link" style="text-decoration:none;">Forgot Password?</span></a>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="text-align:center;padding-top:20px;">
+                                <span>not registered?</span>&nbsp<a><span class="sign_link" style="text-decoration:none;">SignUp</span></a>
+                            </div>
+                        <% end %>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        
+                            <div style="font-family:monotype corsiva;text-align:center;font-size:50px;">SignUp</div>
+                            <%= form_for :user, :url=>{:controller=>'login',:action=>'signup'},:html=>{:id=>"signup_form"}, :method=>'get' do |f| %>
+                            <div class="form-group">
+                              <label for="usrname" style="font-size:20px;font-family:monotype corsiva;"><span class="fa fa-user"></span> USERNAME</label>
+                               <%= f.text_field(:name , :placeholder=> "Username", :class=> "form-control") %>
+                            </div>
+                            <div class="form-group">
+                              <label for="usrname" style="font-size:20px;font-family:monotype corsiva;"><span class="fa fa-envelope"></span> EMAIL</label>
+                               <%= f.text_field(:email , :placeholder=> "Email",:id=>"sign_email", :class=> "form-control") %>
+                            </div>
+                            <div class="form-group">
+                              <label for="psw" style="font-size:20px;font-family:monotype corsiva;"><span class="fa fa-key"></span> PASSWORD</label>
+                              <%= f.password_field(:password , :placeholder=> "Password",:id=>"sign_password", :class=> "form-control") %>
+                            </div>
+                            <%= button_tag(:type=>"button",:class=>'btn btn-success',:onclick=>"signupValidation()") do %>
+                                <i class="fa fa-sign-in"></i> Signup
+                             <% end %>
+                            <div class="row" style="text-align:center;padding-top:20px;">
+                                <span>already registered?</span>&nbsp<a><span class="sign_link" style="text-decoration:none;">LogIn</span></a>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            
+        </div>
+        
+    </div>
+</div>
+<script>
+    function signupValidation()
+        {
+            name = $("#user_name").val();
+            email = $("#sign_email").val();
+            pwd = $("#sign_password").val();
+            if(name =="")
+            {
+                alert("Please enter name");
+                $("#user_name").focus();
+                exit;
+            }
+            if(email =="")
+            {
+                alert("Please enter email");
+                $("#sign_email").focus();
+                exit;
+            }
+            if(pwd=="")
+            {
+                alert("Please enter password");
+                $("#sign_password").focus();   
+                 exit;
+            }
+            else
+            {
+                v1 = validateEmail(email)
+                if(v1)
+                {
+                    $("#signup_form").submit();
+                }
+                else
+                {
+                    alert("Wrong email format");
+                     $("#sign_email").focus();
+                      exit;
+                }
+            }
+            function validateEmail(email)
+            {
+                var atpos = email.indexOf("@");
+                var dotpos = email.lastIndexOf(".");
+                if (atpos < 1 || dotpos<atpos+2 || dotpos+2 >= email.length) {
+                  return false;
+                }
+                else{
+                  return true;
+                }
+            }
+        }
+</script>

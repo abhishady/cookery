@@ -1,0 +1,242 @@
+<style type="text/css">
+.BS{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size:50px;
+    color:#ff3f34;
+}
+.wrapper_menu{
+    font-family: 'Microsoft Sans Serif' , Arial, Helvetica, Verdana;
+    background: #FF5252;
+    color: #fff;
+}
+.full{
+    background: url('/assets/bill.jpg') ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+}
+.bk{
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+.txt{
+    color:#fff;
+}
+.bill{
+    transition: .5s ease-in-out;
+    color: #fff;
+    background: #FF8A80;
+}
+.bill:hover{
+   padding-left:5%;
+}
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+            $(".pclose").click(function(){
+                  $(".crt_container").addClass("flipOutX");
+                  $(".proceed_container").addClass("animated flipInY").css({"display":"block"});
+                  $(".proceed_container").removeClass("flipOutX");
+            });
+            $(".closer").click(function(){
+                  $(".proceed_container").addClass("flipOutX");
+                  $(".proceed_container").removeClass("flipInY");
+            });
+            $(".cart").click(function(){
+                $(".proceed_container").addClass("flipOutX");
+                  $(".proceed_container").removeClass("flipInY");
+                $(".crt_container").addClass("animated flipInY").css({"display":"block"});
+                $(".crt_container").removeClass("flipOutX");
+            });
+            $(".closey").click(function(){
+                  $(".crt_container").addClass("flipOutX");
+                  $(".crt_container").removeClass("flipInY");
+            });
+
+    });
+</script>
+<div class="proceed_container full">
+<div class="closer pull-right" style="margin:20px;font-size:50px;cursor:pointer;color:#fff;">&times;</div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4" style="margin:20px;font-size:27px;color:#fff;cursor:pointer;"><i class="fa fa-chevron-left cart"></i> Back To Cart</div>
+            <h4 class="col-xs-4 BS">Billing & Shipping</h4>
+            <div class="col-xs-4"></div>
+        </div>
+    </div>
+    <div class="row bill">
+        <h4 class="col-lg-4 bill">Billing</h4>
+        <h4 class="col-lg-4 bill">Shipping</h4>
+        <h4 class="col-lg-4 bill">Payment Mode</h4>
+    </div>
+    <div class="container-fluid">
+
+            <div class="row bk">
+            <%= form_for :ordermaster,:url=>{:controller=>'home',:action=>'saveOrder'},:html=>{:id=>"information"} do|f| %>
+                <div class="col-lg-4" style="border-right:1px solid #c1c1c1"><br>
+                    
+                        <div class="form-group">
+                            <h4 class="txt">Name</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <div class="icon-addon addon-md">
+                                     <input type="text" id="bname" name="bname" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">Contact</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="number" id="bcontact" name="bcontact" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">Pincode</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="number" id="bpincode" name="bpincode" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">City</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="text" id="sbcity" name="bcity" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">State</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="text" id="bstate" name="bstate" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">Address</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="text" id="baddress" name="baddress" class="form-control fields" />
+                                </div>
+                            </div>
+                        </div><br>
+                    
+                </div>
+                <div class="col-lg-4" style="border-right:1px solid #c1c1c1"><br>
+                    
+                        <div class="form-group">
+                            <h4 class="txt">Name</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <div class="icon-addon addon-md">
+                                     <input type="text" id="sname" name="sname" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">Contact</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="number" id="scontact" name="scontact" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">Pincode</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="number" id="spincode" name="spincode" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">City</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="text" id="scity" name="scity" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">State</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="text" id="sstate" name="sstate" class="form-control fields" />
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <h4 class="txt">Address</h4>
+                            <div class="input-group input-group-md">
+                                <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                <div class="icon-addon addon-md">
+                                    <input type="text" id="saddress" name="saddress" class="form-control fields"/>
+                                </div>
+                            </div>
+                        </div><br>
+                    
+                </div>
+                <div class="col-lg-4 txt"><br><br>
+                    <div class="radio">
+                        <label><input type="radio" name="mop" value="Cash On Delivery" id="mop"/> Cash On Delivery</label>
+                    </div>
+                    <div class="radio">
+                        <label> <input type="radio" name="mop" id="mop" value="Credit Card"/> Credit Card</label>
+                    </div><br>
+                   
+                <input type="button" value="Continue" class="btn btn-danger" onclick="addInfo()"/>
+                </div>
+                <% end %>
+            </div>
+        </div>
+</div>
+<script>
+    function addInfo()
+
+    {
+        name = $("#bname").val();
+        con = $("#bcontact").val();
+        add = $("#baddress").val();
+        pin = $("#bpincode").val();
+        city = $("#bcity").val();
+        state = $("#bstate").val();
+        sname = $("#sname").val();
+        scon = $("#scontact").val();
+        sadd = $("#saddress").val();
+        spin = $("#spincode").val();
+        scity = $("#scity").val();
+        sstate = $("#sstate").val();
+
+        if(name==""&&con==""&&add==""&&pin==""&&city==""&&state=="")
+        {
+            alert("All fields should be filled!!");
+        }
+        if(sname==""&&scon==""&&sadd==""&&spin==""&&scity==""&&sstate=="")
+        {
+            alert("All fields should be filled!!");
+        }
+        else
+        {
+            $("#information").submit();
+        }
+    }
+</script>

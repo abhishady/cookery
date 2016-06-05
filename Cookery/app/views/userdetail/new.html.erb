@@ -1,0 +1,15 @@
+<div class="container">
+    <h1 style="font-family:tahoma;">ADD USER'S DETAIL</h1>
+</div>
+<div class="row" style="padding-left: 20px;"><br>
+    <%= form_for :userdetail, :url=>{:action=>'create'}, :method=>'get' do |f| %>
+    <div class="form-group">
+	    <label for="email">Email:</label>
+	    <%= collection_select(:userdetail, :user_id, User.all, :id, :email, prompt: true ,:class=> "form-control", :style => "width:50%;") %>
+	</div>
+        
+        <%= render(:partial => "form", :locals =>{:f => f} ) %>
+
+        <%= submit_tag("Save",:class=>"btn btn-success") %>
+    <% end %>
+</div>
