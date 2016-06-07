@@ -28,6 +28,10 @@
         new WOW().init();
     </script>
     <script>
+    	$(window).load(function(){
+            $(".sk-chasing-dots,.sk-child,sk-dot1,sk-dot2");
+            $("#preloader").delay(100).fadeOut("fast");
+        });
     	function increaseQty(id)
             {
                 $(".qty_div_"+id).text( Number($(".qty_div_"+id).text()) + 1 );
@@ -42,6 +46,14 @@
 
 </head>
 <body>
+	 <div id="preloader">
+        <div id="status">
+            <div class="sk-chasing-dots">
+                <div class="sk-child sk-dot1"></div>
+                <div class="sk-child sk-dot2"></div>
+            </div>
+        </div>
+    </div>
  	
             <%= render('/shared/message') %>
 
